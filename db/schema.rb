@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_27_175123) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_27_192407) do
   create_table "bids", force: :cascade do |t|
     t.integer "vendor_id", null: false
     t.integer "request_id", null: false
@@ -20,15 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_175123) do
     t.datetime "updated_at", null: false
     t.index ["request_id"], name: "index_bids_on_request_id"
     t.index ["vendor_id"], name: "index_bids_on_vendor_id"
-  end
-
-  create_table "buyers", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "address"
-    t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -42,24 +33,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_175123) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "vendor_id", null: false
-    t.integer "buyer_id", null: false
     t.integer "request_id", null: false
     t.decimal "total"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["request_id"], name: "index_orders_on_request_id"
     t.index ["vendor_id"], name: "index_orders_on_vendor_id"
   end
 
   create_table "requests", force: :cascade do |t|
-    t.integer "buyer_id", null: false
     t.text "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_requests_on_buyer_id"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,8 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_175123) do
   add_foreign_key "bids", "requests"
   add_foreign_key "bids", "vendors"
   add_foreign_key "invoices", "orders"
-  add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "requests"
   add_foreign_key "orders", "vendors"
-  add_foreign_key "requests", "buyers"
 end

@@ -7,4 +7,6 @@ class User < ApplicationRecord
          enum role: { buyer: 0, vendor: 1 }
 
          validates :role, presence: true
+
+         has_many :requests, dependent: :destroy
 end
