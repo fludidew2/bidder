@@ -36,7 +36,7 @@
             From: "transform opacity-100 scale-100"
             To: "transform opacity-0 scale-95"
         -->
-        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+        <div class="absolute hidden right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
           <div class="py-1" role="none">
             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
             <a href="#" class="flex px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-0-item-0">
@@ -72,6 +72,8 @@
 
   
   </div>
+
+<div class="flex p-8">
    <!-- Bid Button -->
     <div class=""  data-controller="bid-modal">
   <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= index %>" class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -92,7 +94,7 @@
                 <input type="hidden" name="request_id" value="<%= req.id %>">
                 <div>
                   <label for="bid_amount" class="block text-sm font-medium text-gray-700">Bid Amount</label>
-                  <input type="number" name="bid_amount" id="bid_amount" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                  <input type="number" name="amount" id="amount" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                 </div>
                 <div class="mt-4">
                   <button type="submit" class="inline-flex justify-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -117,6 +119,7 @@
       </button>
 
 
+    </div>
     </div>
   
 </div>

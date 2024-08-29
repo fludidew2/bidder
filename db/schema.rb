@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_27_192407) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_29_172748) do
   create_table "bids", force: :cascade do |t|
-    t.integer "vendor_id", null: false
+    t.integer "user_id", null: false
     t.integer "request_id", null: false
     t.decimal "amount"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["request_id"], name: "index_bids_on_request_id"
-    t.index ["vendor_id"], name: "index_bids_on_vendor_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -63,17 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_192407) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vendors", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "address"
-    t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "bids", "requests"
-  add_foreign_key "bids", "vendors"
+  add_foreign_key "bids", "users"
   add_foreign_key "invoices", "orders"
   add_foreign_key "orders", "requests"
   add_foreign_key "orders", "vendors"
