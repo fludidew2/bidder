@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 </head>
-<body>
+<body class="bg-gray-200">
   
 <!--
   This 
@@ -119,6 +119,17 @@
                       Reports
                     </a>
                   </li>
+
+                   <li>
+                    <%= link_to destroy_user_session_path do %>
+                    <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                      <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                      </svg>
+                      Sign Out
+                    <% end %>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -205,14 +216,13 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                  <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                  </svg>
-                  Reports
-                </a>
-              </li>
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
+                      <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                      </svg>
+                      Sign Out
+                    <% end %>
             </ul>
           </li>
           <li>
@@ -265,16 +275,13 @@
     </a>
   </div>
 
-  <main class="py-10 lg:pl-72">
-      <% flash.each do |key, message| %>
-  <div class="flash <%= key %>">
-    <%= message %>
-  </div>
-<% end %>
-    <div class="px-4 bg-gray-200 sm:px-6 lg:px-8">
+  <main class="py-10 bg-gray-200 lg:pl-72">
+    
+  
     <%= yield %>
-    </div>
+  
   </main>
 </div>
+ <%= render 'layouts/footer' %>
 </body>
 </html>

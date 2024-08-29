@@ -1,4 +1,24 @@
 <div class="mx-auto max-w-7xl py-5 px-4 sm:px-6 lg:px-8">
+
+<% if current_user.buyer? %>
+  <h1>Your Requests</h1>
+  <%= link_to 'Create New Request', new_request_path, class: 'btn btn-primary' %>
+
+<% @requests.each do |request| %>
+  <div class="rounded-lg mb-5 bg-white shadow">
+  <div class="px-4 py-5 sm:p-6">
+  <%= link_to request.description, request_path(request) %>
+        <span>Status: <%= request.status %></span>  </div>
+</div>
+ <% end %>
+
+
+<% else %>
+  <!-- Other content for different roles -->
+
+
+
+
    <% @requests.active_for_user(current_user).each_with_index do |req, index| %>
 <div class="rounded-lg  mb-5  bg-white shadow">
   <div class="px-4 py-5 sm:p-6">
@@ -64,16 +84,14 @@
   </div>
 </div>
 
-   <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec nulla ac justo tincidunt fermentum
-        sed ac erat. Nullam fringilla orci mi, sed condimentum nisi volutpat vel. Nulla facilisi. Nulla
-        facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla
+   <p class="text-gray-600"><%= req.description %>
 
    </p>
 
   
   </div>
 
-<div class="flex p-8">
+<div class="flex p-8 space-x-3 ">
    <!-- Bid Button -->
     <div class=""  data-controller="bid-modal">
   <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= index %>" class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -89,6 +107,7 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
               Enter Bid Amount
             </h3>
+            <p>You are entering a bid for: <%= req.description %></p>
             <div class="mt-2">
               <form data-bid-modal-target="form" data-action="submit->bid-modal#submitForm">
                 <input type="hidden" name="request_id" value="<%= req.id %>">
@@ -114,13 +133,14 @@
 
 
 
-     <%= button_to 'Decline', request_path(req), method: :delete, data: { confirm: 'Are you sure you want to decline this request?' }, class: 'inline-flex items-center px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
 
 
     </div>
+         <%= button_to 'Decline', request_path(req), method: :delete, data: { confirm: 'Are you sure you want to decline this request?' }, class: 'inline-flex items-center px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' %>
+
     </div>
   
 </div>
-
+<% end %>
 <% end %>
 </div>
