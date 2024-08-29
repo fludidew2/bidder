@@ -9,4 +9,8 @@ class User < ApplicationRecord
          validates :role, presence: true
 
          has_many :requests, dependent: :destroy
+
+         has_many :declined_requests
+        has_many :declined_requests, through: :declined_requests, source: :request
+
 end

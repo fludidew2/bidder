@@ -20,19 +20,29 @@ class BidsController < ApplicationController
   end
 
   # POST /bids or /bids.json
-    def create
-    @bid = Bid.new(bid_params.merge(user_id: current_user.id, status: 'pending'))
-  
-    respond_to do |format|
-      if @bid.save
-        format.html { redirect_to bid_url(@bid), notice: "Bid was successfully created." }
-        format.json { render :show, json: { success: true, bid: @bid }, status: :created, location: @bid }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: { success: false, errors: @bid.errors.full_messages }, status: :unprocessable_entity }
+      def create
+      if current_user.role == 'vendor' && Bid.exists?(user_id: current_user.id, request_id: bid_params[:request_id])
+        respond_to do |format|
+          format.html { redirect_to bids_url, alert: "You have already submitted a bid for this request." }
+          format.json { render json: { success: false, error: "You have already submitted a bid for this request." }, status: :unprocessable_entity }
+        end
+        return
+      end
+    
+      @bid = Bid.new(bid_params.merge(user_id: current_user.id, status: 'pending'))
+    
+      respond_to do |format|
+        if @bid.save
+          format.html { redirect_to bid_url(@bid), notice: "Bid was successfully created." }
+          format.json { render :show, json: { success: true, bid: @bid }, status: :created, location: @bid }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: { success: false, errors: @bid.errors.full_messages }, status: :unprocessable_entity }
+        end
       end
     end
-  end
+
+    
   # PATCH/PUT /bids/1 or /bids/1.json
   def update
     respond_to do |format|

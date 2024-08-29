@@ -11,6 +11,7 @@
     <%= javascript_importmap_tags %>
 </head>
 <body>
+  
 <!--
   This 
 <div>
@@ -265,6 +266,11 @@
   </div>
 
   <main class="py-10 lg:pl-72">
+      <% flash.each do |key, message| %>
+  <div class="flash <%= key %>">
+    <%= message %>
+  </div>
+<% end %>
     <div class="px-4 bg-gray-200 sm:px-6 lg:px-8">
     <%= yield %>
     </div>

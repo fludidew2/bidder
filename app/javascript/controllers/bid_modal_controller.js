@@ -49,7 +49,10 @@ export default class extends Controller {
         const modal = this.modalTargets.find(modal => modal.getAttribute('data-bid-modal-index') === index);
         modal.classList.add('hidden');
       } else {
-        alert('Error submitting bid.');
+        alert(data.error);
+        const index = form.closest('[data-bid-modal-index]').getAttribute('data-bid-modal-index');
+        const modal = this.modalTargets.find(modal => modal.getAttribute('data-bid-modal-index') === index);
+        modal.classList.add('hidden');
       }
     })
     .catch(error => {

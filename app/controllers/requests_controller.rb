@@ -47,16 +47,21 @@ class RequestsController < ApplicationController
     end
   end
 
-  # DELETE /requests/1 or /requests/1.json
-  def destroy
-    @request.destroy
-
+    def destroy
+    if current_user.role == 'vendor'
+      DeclinedRequest.create(user: current_user, request: @request)
+      flash[:notice] = "Request was successfully declined."
+    else
+      @request.destroy
+      flash[:notice] = "Request was successfully destroyed."
+    end
+  
     respond_to do |format|
-      format.html { redirect_to requests_url, notice: "Request was successfully destroyed." }
+      format.html { redirect_to dashboard_path }
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request

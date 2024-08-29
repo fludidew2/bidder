@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_29_172748) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_29_182610) do
   create_table "bids", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "request_id", null: false
@@ -20,6 +20,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_29_172748) do
     t.datetime "updated_at", null: false
     t.index ["request_id"], name: "index_bids_on_request_id"
     t.index ["user_id"], name: "index_bids_on_user_id"
+  end
+
+  create_table "declined_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_declined_requests_on_request_id"
+    t.index ["user_id"], name: "index_declined_requests_on_user_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -65,6 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_29_172748) do
 
   add_foreign_key "bids", "requests"
   add_foreign_key "bids", "users"
+  add_foreign_key "declined_requests", "requests"
+  add_foreign_key "declined_requests", "users"
   add_foreign_key "invoices", "orders"
   add_foreign_key "orders", "requests"
   add_foreign_key "orders", "vendors"

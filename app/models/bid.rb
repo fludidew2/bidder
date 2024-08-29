@@ -9,6 +9,4 @@ class Bid < ApplicationRecord
   def user_must_be_vendor
     errors.add(:user, "must be a vendor") unless user&.role == "vendor"
   end
-
-  
 end
