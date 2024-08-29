@@ -1,24 +1,33 @@
 // app/javascript/controllers/bid_modal_controller.js
+
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["modal", "form"];
+  static targets = ["modal", "form"]
 
   connect() {
-    this.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    this.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    console.log("connected")
   }
 
-  openModal() {
-    this.modalTarget.classList.remove('hidden');
+  open(event) {
+    const index = event.target.getAttribute('data-bid-modal-index')
+    const modal = this.modalTargets.find(modal => modal.getAttribute('data-bid-modal-index') === index)
+    modal.classList.remove('hidden')
   }
 
-  closeModal() {
-    this.modalTarget.classList.add('hidden');
+  close(event) {
+    const index = event.target.closest('[data-bid-modal-index]').getAttribute('data-bid-modal-index')
+    const modal = this.modalTargets.find(modal => modal.getAttribute('data-bid-modal-index') === index)
+    modal.classList.add('hidden')
   }
 
   submitForm(event) {
-    event.preventDefault();
-    const formData = new FormData(this.formTarget);
+    event.preventDefault()
+    const form = event.target
+    const index = form.closest('[data-bid-modal-index]').getAttribute('data-bid-modal-index')
+    const modal = this.modalTargets.find(modal => modal.getAttribute('data-bid-modal-index') === index)
+    const formData = new FormData(form)
 
     fetch('/bids', {
       method: 'POST',
@@ -30,15 +39,15 @@ export default class extends Controller {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        this.closeModal();
-        alert('Bid submitted successfully!');
+        modal.classList.add('hidden')
+        alert('Bid submitted successfully!')
       } else {
-        alert('Error submitting bid.');
+        alert('Error submitting bid.')
       }
     })
     .catch(error => {
-      console.error('Error:', error);
-      alert('Error submitting bid.');
-    });
+      console.error('Error:', error)
+      alert('Error submitting bid.')
+    })
   }
 }
