@@ -3,7 +3,7 @@
 
   def index
     if current_user.buyer?
-      @requests = current_user.requests
+      @requests = current_user.requests.order(created_at: :desc)
     else
     @requests = Request.all
     end

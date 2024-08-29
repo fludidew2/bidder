@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
+  layout 'dashboard'
 
   # GET /requests or /requests.json
   def index
@@ -22,12 +23,17 @@ class RequestsController < ApplicationController
   # POST /requests or /requests.json
   def create
     @request = Request.new(request_params)
+    @request.user = current_user # Assuming a request belongs to a user
+    @request.status = :open # Assuming a request starts as open
+
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to request_url(@request), notice: "Request was successfully created." }
+        flash[:notice] = "Request was successfully created."
+        format.html { redirect_to dashboard_path }
         format.json { render :show, status: :created, location: @request }
       else
+        flash[:alert] = "There was an error creating the request."
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
@@ -70,6 +76,6 @@ class RequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def request_params
-      params.require(:request).permit(:buyer_id, :description, :status)
+      params.require(:request).permit(:description)
     end
 end
