@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   layout 'dashboard'
 
   def edit
+    @profile = current_user.profile
   end
 
   def update
@@ -21,6 +22,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:business_name, :address)
+    params.require(:profile).permit(:business_name, :about, :street_address, :city, :state, :zip_code, :phone, :email_address, :first_name, :last_name)
   end
 end
