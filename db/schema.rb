@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_29_182610) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_30_150143) do
   create_table "bids", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "request_id", null: false
@@ -41,22 +41,34 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_29_182610) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "vendor_id", null: false
+    t.integer "user_id", null: false
+    t.integer "buyer_id", null: false
     t.integer "request_id", null: false
     t.decimal "total"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["request_id"], name: "index_orders_on_request_id"
-    t.index ["vendor_id"], name: "index_orders_on_vendor_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "business_name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.text "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,6 +89,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_29_182610) do
   add_foreign_key "declined_requests", "requests"
   add_foreign_key "declined_requests", "users"
   add_foreign_key "invoices", "orders"
+  add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "requests"
-  add_foreign_key "orders", "vendors"
+  add_foreign_key "orders", "users"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "requests", "users"
 end

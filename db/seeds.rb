@@ -37,4 +37,13 @@ buyers.each do |buyer|
   end
 end
 
+User.find_each do |user|
+  unless user.profile
+    user.create_profile(
+      business_name: "Default Business Name for #{user.email}",
+      address: "Default Address for #{user.email}"
+    )
+  end
+end
+
 puts "Seeded #{User.count} users (#{buyers.count} buyers and #{vendors.count} vendors) and #{Request.count} requests."
