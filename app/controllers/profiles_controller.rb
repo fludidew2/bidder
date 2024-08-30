@@ -9,7 +9,8 @@ class ProfilesController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      redirect_to dashboard_path, notice: 'Profile was successfully updated.'
+      flash[:notice] = 'Profile was successfully updated.'
+      redirect_to dashboard_path
     else
       render :edit
     end

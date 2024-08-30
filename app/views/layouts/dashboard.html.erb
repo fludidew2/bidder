@@ -11,6 +11,8 @@
     <%= javascript_importmap_tags %>
 </head>
 <body class="bg-gray-200">
+
+
   
 <!--
   This 
@@ -291,7 +293,17 @@
     </a>
   </div>
 
+  
+
   <main class="py-10 bg-gray-200 lg:pl-72">
+
+      <% flash.each do |key, value| %>
+      <div class="p-4 mb-4 text-sm text-<%= key == 'notice' ? 'green-700 bg-green-100' : 'red-700 bg-red-100' %> rounded-lg" role="alert">
+        <span class="font-medium"><%= key.capitalize %>:</span> <%= value %>
+      </div>
+    <% end %>
+    
+
     
   
     <%= yield %>
