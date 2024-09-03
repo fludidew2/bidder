@@ -13,10 +13,13 @@
 <% @requests.each do |request| %>
   <div class="rounded-lg mb-5 bg-white shadow">
   <div class="px-4 py-5  sm:p-6">
-  <%= link_to request.description, request_path(request) %>
-     <p>Status: <%= request.status %></p>
+       <div class="mt-2 max-w-xl text-sm text-gray-500">
+  <p><%= status_badge(request) %>  <%= link_to request.description, request_path(request) %></p>
+  
+
       
               <p><%= request.bids.count %> Bids</p>
+              </div>
 
       </div>
   </div>

@@ -2,4 +2,6 @@
 class DeclinedRequest < ApplicationRecord
   belongs_to :user
   belongs_to :request
+  
+
 end

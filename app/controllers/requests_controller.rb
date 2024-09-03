@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
   def create
     @request = Request.new(request_params)
     @request.user = current_user # Assuming a request belongs to a user
-    @request.status = :open # Assuming a request starts as open
+    @request.status = :live# Assuming a request starts as open
 
 
     respond_to do |format|
