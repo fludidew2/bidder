@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
   # GET /requests or /requests.json
   def index
     @requests = Request.all
+  
   end
 
   # GET /requests/1 or /requests/1.json
@@ -51,6 +52,24 @@ class RequestsController < ApplicationController
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+
+
+  def accept_bid
+    @request = Request.find(params[:id])
+    @bid = @request.bids.find(params[:bid_id])
+
+    ActiveRecord::Base.transaction do
+      @request.update!(accepted: true, bidding_closed: true, status: :closed)
+      @bid.update!(status: :winning)
+    end
+
+    flash[:notice] = 'Bid was successfully accepted. Further bidding is now closed.'
+    redirect_to @request
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = "There was an error accepting the bid: #{e.message}"
+    redirect_to @request
   end
 
     def destroy

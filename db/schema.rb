@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_03_195856) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_04_190719) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,9 +43,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_195856) do
     t.integer "user_id", null: false
     t.integer "request_id", null: false
     t.decimal "amount"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["request_id"], name: "index_bids_on_request_id"
     t.index ["user_id"], name: "index_bids_on_user_id"
   end
@@ -103,6 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_195856) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.boolean "accepted"
+    t.boolean "bidding_closed"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 

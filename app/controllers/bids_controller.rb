@@ -29,7 +29,7 @@ class BidsController < ApplicationController
         return
       end
     
-      @bid = Bid.new(bid_params.merge(user_id: current_user.id, status: 'pending'))
+      @bid = Bid.new(bid_params.merge(user_id: current_user.id, status: :pending))
     
       respond_to do |format|
         if @bid.save

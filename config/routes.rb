@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :invoices
+  resources :invoices, only: [:show]
   resources :orders
   resources :bids
-  resources :requests
+  resources :requests do
+    member do
+      patch :accept_bid
+      get :generate_invoice
+    end
+  end
+
   resources :buyers
   resources :vendors
   resources :profiles, only: [:show, :edit, :update]

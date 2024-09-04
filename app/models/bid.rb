@@ -2,6 +2,7 @@ class Bid < ApplicationRecord
   belongs_to :user
   belongs_to :request
 
+  enum status: { pending: 0, winning: 1, declined: 2 }
   validate :user_must_be_vendor
 
   private
