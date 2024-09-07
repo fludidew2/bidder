@@ -115,8 +115,35 @@
         </svg>
 
         </div>
-          <div class="mt-5 flex pl-7 space-x-3" data-controller="bid-modal">
-             <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= index %>" class="rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/20">
+       
+          <% bid_submitted_by_current_user = req.bids.exists?(user_id: current_user.id) %>
+           <% if bid_submitted_by_current_user %>
+          
+
+
+<div class="mt-5">
+    <ul role="list" class="space-y-6">
+  <% bid_by_current_user = req.bids.find_by(user_id: current_user.id) %>
+  
+  <li class="relative flex gap-x-4">
+    <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white">
+      <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300"></div>
+    </div>
+    <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
+      <span class="font-medium text-gray-900">You</span> submitted a bid of <%= number_to_currency(bid_by_current_user.amount) %> on <%= bid_by_current_user.created_at.strftime("%B %d, %Y") %>.
+    </p>
+  </li>
+
+  </ul>
+     
+    </div>
+
+
+
+
+    <% else %>
+   <div class="mt-5 flex pl-7 space-x-3" data-controller="bid-modal">
+      <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= index %>" class="rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/20" <%= 'disabled' if bid_submitted_by_current_user %>>
               Bid
             </button>
               <!-- Modal -->
@@ -156,16 +183,23 @@
 
   
     </div>
+<!--activitylist-->
+  
 
-    
+      <% end %>
     
   </div>
   <%= status_badge(req) %>
+
+  
    
 
 </div>
+
+
   <% end %>
   </div>
+  
 <% end %>
 
 
