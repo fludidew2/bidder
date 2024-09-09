@@ -66,7 +66,14 @@
 
         </div>
           <div class="mt-5 flex pl-7 space-x-3" data-controller="bid-modal">
-             <%= button_to 'Invoice', generate_invoice_path(request_id: req.id, bid_id:  req.bids.find_by(user_id: current_user.id)), method: :post, class: 'rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/20' %>
+            <% invoice = Invoice.find_by(request_id: req.id, bid_id: req.bids.find_by(user_id: current_user.id).id) %>
+
+              <% if invoice %>
+  <%= link_to 'View Invoice', invoice_path(invoice), class: 'rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/20' %>
+<% else %>
+  <%= button_to 'Generate Invoice', generate_invoice_path(request_id: req.id, bid_id: req.bids.find_by(user_id: current_user.id).id), method: :post, class: 'rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/20' %>
+<% end %>
+
               <button type="button" class="rounded-md bg-purple-400/10 px-2 py-1 text-xs font-medium text-purple-400 ring-1 ring-inset ring-purple-400/20">
               Message Customer
             </button>
