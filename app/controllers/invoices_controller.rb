@@ -8,11 +8,16 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1 or /invoices/1.json
   def show
-    @invoice = Invoice.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "file_name", template: "invoices/show", formats: [:html]
+    def show
+      @invoice = Invoice.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = InvoicePdf.new(@invoice)
+          send_data pdf.render, filename: "invoice_#{@invoice.id}.pdf",
+                                type: 'application/pdf',
+                                disposition: 'inline'
+        end
       end
     end
   end
