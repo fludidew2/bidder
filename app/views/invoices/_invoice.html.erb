@@ -78,7 +78,7 @@
             </div>
           </dl>
           <div class="mt-6 border-t border-gray-900/5 px-6 py-6">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Download receipt <span aria-hidden="true">&rarr;</span></a>
+            <%= link_to 'Download', invoice_path(@invoice, format: :pdf), class: 'text-sm font-semibold leading-6 text-gray-900' %>
           </div>
         </div>
       </div>
