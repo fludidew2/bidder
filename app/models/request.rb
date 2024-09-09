@@ -1,6 +1,7 @@
 class Request < ApplicationRecord
   belongs_to :user
   has_many :bids, dependent: :destroy
+  has_many :invoices, dependent: :destroy
   validates :description, :status, :user, presence: true 
 
   enum status: { live: 0, shipping: 1, closed: 2,  completed: 3 }

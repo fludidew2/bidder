@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_04_190719) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_09_155047) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,12 +60,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_04_190719) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.decimal "amount"
-    t.string "status"
+    t.integer "request_id", null: false
+    t.integer "bid_id", null: false
+    t.string "request_description"
+    t.decimal "amount", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_invoices_on_order_id"
+    t.index ["bid_id"], name: "index_invoices_on_bid_id"
+    t.index ["request_id"], name: "index_invoices_on_request_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -127,7 +129,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_04_190719) do
   add_foreign_key "bids", "users"
   add_foreign_key "declined_requests", "requests"
   add_foreign_key "declined_requests", "users"
-  add_foreign_key "invoices", "orders"
+  add_foreign_key "invoices", "bids"
+  add_foreign_key "invoices", "requests"
   add_foreign_key "orders", "buyers"
   add_foreign_key "orders", "requests"
   add_foreign_key "orders", "users"

@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   resources :requests do
     member do
       patch :accept_bid
-      get :generate_invoice
     end
   end
+  post 'generate_invoice', to: 'invoices#generate', as: 'generate_invoice'
 
   resources :buyers
   resources :vendors

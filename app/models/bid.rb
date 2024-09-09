@@ -1,6 +1,8 @@
 class Bid < ApplicationRecord
   belongs_to :user
   belongs_to :request
+  has_many :invoices, dependent: :destroy
+
 
   enum status: { pending: 0, winning: 1, declined: 2 }
   validate :user_must_be_vendor
