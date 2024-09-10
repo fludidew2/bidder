@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
   def update
     if @profile.update(profile_params)
       flash[:notice] = 'Profile was successfully updated.'
-      redirect_to dashboard_path
+      redirect_to edit_profile_path
     else
       render :edit
     end
@@ -23,6 +23,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:business_name, :about, :street_address, :city, :state, :zip_code, :phone, :email_address, :first_name, :last_name)
+    params.require(:profile).permit(:business_name, :about, :street_address, :avatar, :city, :state, :zip_code, :phone, :email_address, :first_name, :last_name)
   end
 end

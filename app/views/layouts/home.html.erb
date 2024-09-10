@@ -26,14 +26,7 @@
 -->
 <div class="bg-white">
 
-  <div class="p-5">
-      <% flash.each do |key, value| %>
-      <div class="p-4 mb-4 text-sm text-<%= key == 'notice' ? 'green-700 bg-green-100' : 'red-700 bg-red-100' %> rounded-lg" role="alert">
-        <span class="font-medium"><%= key.capitalize %>:</span> <%= value %>
-      </div>
-    <% end %>
-    </div>
-
+  
 
   <!-- Header -->
   <header class="absolute inset-x-0 top-0 z-50">
@@ -101,15 +94,17 @@
       </div>
     </div>
   </header>
-<div class="p-5">
+
+    
+  <main>
+
+    <div class="p-5 mt-20">
       <% flash.each do |key, value| %>
       <div class="p-4 mb-4 text-sm text-<%= key == 'notice' ? 'green-700 bg-green-100' : 'red-700 bg-red-100' %> rounded-lg" role="alert">
         <span class="font-medium"><%= key.capitalize %>:</span> <%= value %>
       </div>
     <% end %>
     </div>
-    
-  <main>
     <%= yield %>
   </main>
 

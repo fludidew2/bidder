@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+ @keyframes concentricPulse {
+    0% {
+      stroke-width: 0;
+      opacity: 1;
+    }
+    100% {
+      stroke-width: 1;
+      opacity: 0;
+    }
+  }
+  
+  .pulse {
+    fill: none;
+    stroke: green;
+    animation: concentricPulse 1s infinite;
+    transform-origin: center;
+  }
