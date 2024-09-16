@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
   post 'generate_invoice', to: 'invoices#generate', as: 'generate_invoice'
 
+  post 'generate_payment', to: 'payments#generate', as: 'generate_payment'
+
   resources :buyers
   resources :vendors
   resources :profiles, only: [:show, :edit, :update]

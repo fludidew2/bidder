@@ -77,3 +77,5 @@ gem "tailwindcss-rails", "~> 2.7"
 gem 'devise'
 
 gem 'prawn'
+
+gem 'stripe' # For payment processing
