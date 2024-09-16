@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get '/auth/stripe/connect', to: 'stripe#connect', as: 'stripe_connect'
+  get '/auth/stripe/create_account', to: 'stripe#create_account', as: 'stripe_create_account'
+  get '/auth/stripe/callback', to: 'stripe#callback', as: 'stripe_callback'
+  get "stripe/dashboard/:user_id", to: "stripe#dashboard", as: :stripe_dashboard
+  
   devise_for :users
   resources :invoices, only: [:show]
   resources :orders
@@ -11,6 +16,7 @@ Rails.application.routes.draw do
   post 'generate_invoice', to: 'invoices#generate', as: 'generate_invoice'
 
   post 'generate_payment', to: 'payments#generate', as: 'generate_payment'
+
 
   resources :buyers
   resources :vendors
