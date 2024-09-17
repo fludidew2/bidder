@@ -1,27 +1,20 @@
 class PaymentsController < ApplicationController
-  def generate
-    request = Request.find(params[:request_id])
-    bid = request.bids.find(params[:bid_id])
-    user = request.user
+  def create_checkout_session
+    @invoice = Invoice.find(params[:invoice_id]) # Adjust as needed
 
-    # Generate invoice using Stripe
-    invoice = Stripe::Invoice.create({
-      customer: user.stripe_customer_id,
-      auto_advance: true, # Auto-finalize this draft after ~1 hour
-      collection_method: 'send_invoice',
-      days_until_due: 30,
-      description: "Invoice for bid ##{bid.id}",
-      metadata: {
-        request_id: request.id,
-        bid_id: bid.id
-      }
-    })
+    @session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: 'Invoice Payment',
+        amount: (@invoice.amount * 1.10).to_i, # Adjust amount as needed
+        currency: 'usd',
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: root_url, # Adjust as needed
+      cancel_url: root_url,  # Adjust as needed
+    )
 
-    # Send invoice to the requester's email
-    Stripe::Invoice.send_invoice(invoice.id)
-
-    redirect_to request_path(request), notice: 'Invoice generated and sent to the requester.'
-  rescue Stripe::StripeError => e
-    redirect_to request_path(request), alert: "Error generating invoice: #{e.message}"
+    render json: { id: session.id }
   end
 end

@@ -7,7 +7,7 @@ class InvoicesController < ApplicationController
   end
 
   # GET /invoices/1 or /invoices/1.json
-  def show
+
     def show
       @invoice = Invoice.find(params[:id])
       respond_to do |format|
@@ -20,7 +20,7 @@ class InvoicesController < ApplicationController
         end
       end
     end
-  end
+
 
   # GET /invoices/new
   def new

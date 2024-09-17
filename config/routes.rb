@@ -15,8 +15,7 @@ Rails.application.routes.draw do
   end
   post 'generate_invoice', to: 'invoices#generate', as: 'generate_invoice'
 
-  post 'generate_payment', to: 'payments#generate', as: 'generate_payment'
-
+  post 'create_checkout_session', to: 'payments#create_checkout_session'
 
   resources :buyers
   resources :vendors

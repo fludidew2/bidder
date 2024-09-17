@@ -9,6 +9,8 @@ module RequestsHelper
       content_tag(:span, 'Closed', class: 'inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-600 ring-1 ring-inset ring-purple-500/10')
     when 'completed'
       content_tag(:span, 'Completed', class: 'inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-600 ring-1 ring-inset ring-red-500/10')
+    when 'accepted'
+      content_tag(:span, 'Accepted', class: 'inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-600 ring-1 ring-inset ring-purple-500/10')
     else
       content_tag(:span, 'Live', class: 'inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10')
     end
