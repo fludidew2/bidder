@@ -3,8 +3,8 @@ class CheckoutController < ApplicationController
     @invoice = Invoice.find(params[:id])
 
     # Calculate the amount and ensure it's at least $0.50 USD
-    amount = (@invoice.amount * 1.10).to_i
-    amount = [amount, 50].max
+    amount = (@invoice.amount * 100).to_i
+  
 
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
@@ -19,10 +19,12 @@ class CheckoutController < ApplicationController
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: root_url, # Adjust as needed
-      cancel_url: root_url,  # Adjust as needed
+      automatic_tax: {enabled: true},
+      ui_mode: 'embedded', # Optional: Adjust as needed
+      return_url: invoice_url(@invoice), # Specify return_url
+      # redirect_on_completion: 'never', # Alternatively, disable redirects
     )
 
-    render json: { id: @session.id }
+
   end
 end
