@@ -29,8 +29,6 @@ class StripeController < ApplicationController
         business_type: 'individual',
         business_profile: {
           mcc: '5818',
-          first_name: current_user.profile.first_name,
-          last_name: current_user.profile.last_name,
           name: current_user.profile.business_name,
           product_description: current_user.profile.about
           
