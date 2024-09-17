@@ -26,7 +26,7 @@ class User < ApplicationRecord
         def stripe_account_setup?
           stripe_account_id.present? && stripe_status == 'complete' 
         end
-       
+      
 
         private
 

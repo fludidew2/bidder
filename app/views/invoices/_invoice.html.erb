@@ -89,11 +89,9 @@
           </dl>
           <div class="mt-6 border-t border-gray-900/5 px-6 py-6">
 <%= link_to 'Download', invoice_path(@invoice, format: :pdf), class: 'rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/20' %>
-<div class="mt-6 border-t border-gray-900/5 px-6 py-6">
-  <button id="checkout-button" class="rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/20">
-    Pay Now
-  </button>
-</div>
+
+        <%= link_to "CHECKOUT", checkout_path(invoice), class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium text-white bg-black hover:bg-neon-yellow hover:text-black cursor-pointer md:py-4 md:text-lg md:px-10", data: { turbo_frame: "_top" } %>        
+
 
 
           </div>

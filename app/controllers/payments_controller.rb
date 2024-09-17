@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  def create_checkout_session
+  def show
     @invoice = Invoice.find(params[:invoice_id]) # Adjust as needed
 
     @session = Stripe::Checkout::Session.create(
