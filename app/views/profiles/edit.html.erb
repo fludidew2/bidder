@@ -99,8 +99,11 @@
       <p class="mt-5 text-sm leading-6 text-gray-600">We use Stripe to process payments and handle payouts to our musicians. <br /> Connect your Stripe account to start getting paid.</p><br />
 
 
-      <%= link_to 'Connect with Stripe', stripe_create_account_path, class:"rounded-md bg-indigo-600 mt-10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>   
-      
+<% if current_user.stripe_status == "incomplete" %>
+  <%= link_to 'Connect with Stripe', stripe_create_account_path, class: "rounded-md bg-indigo-600 mt-10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+<% else %>
+        <%= link_to "Go to Stripe Dashboard", stripe_dashboard_path(current_user.id), class:"rounded-md bg-indigo-600 mt-10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+<% end %>      
     
 
 

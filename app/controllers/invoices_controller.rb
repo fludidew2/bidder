@@ -90,6 +90,14 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def success
+    @invoice = Invoice.find(params[:id])
+    @invoice.update(status: 'paid')
+
+    flash[:notice] = "Payment was successful. Invoice has been marked as paid."
+    redirect_to @invoice
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice

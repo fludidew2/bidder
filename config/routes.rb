@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :checkout, only: [:show]
 
-  resources :invoices, only: [:show]
+  resources :invoices, only: [:show] do
+    member do
+      get 'success', to: 'invoices#success'
+    end
+  end
+  
   resources :orders
   resources :bids
   resources :requests do
