@@ -2,14 +2,21 @@ class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy ]
   layout 'dashboard'
 
-  # GET /requests or /requests.json
+
   def index
-    @requests = Request.all
-  
+    @requests = Request.where(status: params[:status])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("requests", partial: "requests", locals: { requests: @requests }) }
+    end
   end
+
+  
 
   # GET /requests/1 or /requests/1.json
   def show
+    console
   end
 
   # GET /requests/new
