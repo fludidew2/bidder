@@ -68,7 +68,7 @@ class RequestsController < ApplicationController
     @bid = @request.bids.find(params[:bid_id])
 
     ActiveRecord::Base.transaction do
-      @request.update!(accepted: true, bidding_closed: true, status: :accepted)
+      @request.update!(accepted: true, bidding_closed: true, status: :accepted, winning_bid: @bid, winning_bid_user_id: @bid.user_id)
       @bid.update!(status: :winning)
     end
 

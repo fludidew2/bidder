@@ -69,38 +69,28 @@
 
 
 <div>
-  <div class="sm:hidden">
-    <label for="tabs" class="sr-only">Select a tab</label>
-    <select id="tabs" name="tabs" data-controller="filter" data-filter-target="select" class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-      <option value="<%= dashboard_path(status: 'live') %>" <%= 'selected' if params[:status] == 'live' || params[:status].blank? %>>Live</option>
-            <option value="<%= dashboard_path(status: 'accepted') %>" <%= 'selected' if params[:status] == 'accepted' %>>Accepted</option>
-
-      <option value="<%= dashboard_path(status: 'completed') %>" <%= 'selected' if params[:status] == 'completed' %>>Completed</option>
-    </select>
-  </div>
   <div class="hidden sm:block">
     <div class="border-b border-gray-200">
       <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-        <a href="<%= dashboard_path(status: 'live') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'live' || params[:status].blank? %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
+          <a href="<%= dashboard_path(status: 'live') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'live' || params[:status].blank? %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
           Live
-          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block">52</span>
+          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @live_requests_count %></span>
         </a>
-             <a href="<%= dashboard_path(status: 'accepted') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'accepted' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700"> Accepted </a>
-
-        <a href="<%= dashboard_path(status: 'completed') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'completed' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700"> Completed </a>
+        <a href="<%= dashboard_path(status: 'accepted') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'accepted' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
+          Accepted
+          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @accepted_requests_count %></span>
+        </a>
+        <a href="<%= dashboard_path(status: 'completed') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'completed' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
+          Completed
+          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @completed_requests_count %></span>
+        </a>
       </nav>
     </div>
   </div>
-
-  <!-- Turbo Frame to update content -->
-  <turbo-frame id="requests">
-    <%= render 'requests', requests: @requests %>
-  </turbo-frame>
-</div>
   
+<turbo-frame id="requests">
+  <%= render partial: 'dashboard/requests', locals: { requests: @requests } %>
+</turbo-frame>
 
 
-  
 <% end %>
-
-

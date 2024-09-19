@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_16_183154) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_19_174446) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -108,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_16_183154) do
     t.integer "status", default: 0
     t.boolean "accepted"
     t.boolean "bidding_closed"
+    t.integer "winning_bid_id"
+    t.integer "winning_bid_user_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
