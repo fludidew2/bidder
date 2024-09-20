@@ -2,7 +2,6 @@
   before_action :authenticate_user!
 
   def index
-    console
     @requests = if current_user.buyer?
                   # Show the user's own requests if they are a buyer
                   Request.where(user_id: current_user.id).order(created_at: :desc)

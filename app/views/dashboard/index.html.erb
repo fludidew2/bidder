@@ -87,6 +87,8 @@
       </nav>
     </div>
   </div>
+
+  <%= turbo_stream_from "requests" %>
   
 <turbo-frame id="requests">
   <%= render partial: 'dashboard/requests', locals: { requests: @requests } %>
