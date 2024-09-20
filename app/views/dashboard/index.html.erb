@@ -69,20 +69,20 @@
 
 
 <div>
-  <div class="hidden sm:block">
+  <div class="sm:block">
     <div class="border-b border-gray-200">
-      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+      <nav class="-mb-px flex space-x-3" aria-label="Tabs">
           <a href="<%= dashboard_path(status: 'live') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'live' || params[:status].blank? %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
           Live
-          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @live_requests_count %></span>
+          <span class="ml-3  rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @live_requests_count %></span>
         </a>
         <a href="<%= dashboard_path(status: 'accepted') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'accepted' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
           Accepted
-          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @accepted_requests_count %></span>
+          <span class="ml-3  rounded-full bg-purple-400/10 px-2.5 py-0.5 text-xs font-medium text-purple-900 md:inline-block"><%= @accepted_requests_count %></span>
         </a>
-        <a href="<%= dashboard_path(status: 'completed') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'completed' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-200 hover:text-gray-700">
+        <a href="<%= dashboard_path(status: 'completed') %>" data-turbo-frame="requests" class="flex whitespace-nowrap border-b-2 <%= 'border-indigo-500 text-indigo-600' if params[:status] == 'completed' %> border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-red-200 hover:text-gray-700">
           Completed
-          <span class="ml-3 hidden rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @completed_requests_count %></span>
+          <span class="ml-3 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-900 md:inline-block"><%= @completed_requests_count %></span>
         </a>
       </nav>
     </div>
