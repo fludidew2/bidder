@@ -6,8 +6,11 @@
           <div class="h-2 w-2 rounded-full bg-current"></div>
         </div>
 
+
+      <%=  link_to req.user.profile, data: { turbo: false }  do %>
         <% if req.user.profile.avatar.attached? %>
           <%= image_tag req.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: 'h-6 w-6 flex-none rounded-full bg-gray-800' %>
+        <% end %>
         <% end %>
 
         <h2 class="min-w-0 text-sm font-semibold leading-6 text-gray-600">

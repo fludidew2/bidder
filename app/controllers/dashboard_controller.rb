@@ -11,9 +11,13 @@
                   @live_requests_count = Request.where(status: 'live').count
                   case params[:status]
                   when 'accepted', 'completed'
-                    Request.where(status: params[:status], winning_bid_user_id: current_user.id).order(created_at: :desc)
+                    Request.where(status: params[:status], winning_bid_user_id: current_user.id)
+                           .where.not(id: DeclinedRequest.where(user_id: current_user.id).select(:request_id))
+                           .order(created_at: :desc)
                   else
-                    Request.where(status: 'live').order(created_at: :desc)
+                    Request.where(status: 'live')
+                           .where.not(id: DeclinedRequest.where(user_id: current_user.id).select(:request_id))
+                           .order(created_at: :desc)
                   end
                 end
   
