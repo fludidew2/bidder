@@ -37,7 +37,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        flash[:notice] = "Request was successfully created."
+        # flash[:notice] = "Request was successfully created."
         format.html { redirect_to dashboard_path }
         format.json { render :show, status: :created, location: @request }
       else
