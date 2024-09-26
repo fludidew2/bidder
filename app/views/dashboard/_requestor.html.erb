@@ -38,7 +38,7 @@
           </ul>
         </div>
       <% else %>
-      <% unless request.user == current_user %>
+      <% unless request.user == user %>
         <div class="mt-5 flex pl-7 space-x-3" data-controller="bid-modal">
             <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= request.id %>" class="rounded bg-indigo-50 ring-1 ring-indigo-300 px-2 py-1 text-xs font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100" <%= 'disabled' if bid_submitted_by_current_user %>>
             Quote
@@ -75,6 +75,11 @@
           </div>
           <%= button_to 'Decline', request_path(request), method: :delete, data: { confirm: 'Are you sure you want to decline this request?' }, class: 'rounded bg-red-400 px-2 py-1 text-xs font-semibold text-white ring-1 ring-inset ring-red-600 shadow-sm hover:bg-red-300', data: { turbo: false } %>
         </div>
+      <% else %>
+
+      DELETE THIS LINE 
+       
+
       <% end %>
       <% end %>
       <button class="rounded-md px-8 mt-3 text-xs font-medium text-gray-600">
