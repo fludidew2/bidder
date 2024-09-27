@@ -1,7 +1,7 @@
 <turbo-stream action="prepend" target="requests">
   <template>
-    <turbo-frame id="requestuest_<%= request.id %>" class="post fade-in">
-        <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+    <turbo-frame id="requestuest_<%= request.id %>">
+        <div id="<%= dom_id(request) %>"  class="divide-y divide-gray-200 overflow-hidden post rounded-lg bg-white  shadow">
   <div class="px-4 py-5 sm:px-6">
     <!-- Content goes here -->
 
@@ -11,9 +11,10 @@
         </div>
     <div class="flex-shrink-0">
   <%= link_to request.user.profile,  data: { turbo: false } do %>
-        <% if request.user.profile.avatar.attached? %>
-          <%= image_tag request.user.profile.avatar.variant(resize_to_limit: [100, 100]), class: 'h-6 w-6 flex-none rounded-full bg-gray-800' %>
-        <% end %>
+        
+<% if request.user.profile.avatar.attached? %>
+  <%= image_tag url_for(request.user.profile.avatar.variant(resize_to_limit: [100, 100])), class: 'h-6 w-6 flex-none rounded-full bg-gray-800' %>
+<% end %>
         <% end %>   
      </div>
     <div class="min-w-0 flex-1">
