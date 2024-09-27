@@ -38,8 +38,10 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if @request.save
         # flash[:notice] = "Request was successfully created."
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("requests", partial: "dashboard/requestor", locals: { request: @request },  data: { stream_enter_class: "slide-in" })  }
+
         format.html { redirect_to dashboard_path }
-        format.json { render :show, status: :created, location: @request }
+        # format.json { render :show, status: :created, location: @request }
       else
         flash[:alert] = "There was an error creating the request."
         format.html { render :new, status: :unprocessable_entity }
