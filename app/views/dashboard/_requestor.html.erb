@@ -1,7 +1,7 @@
 <turbo-stream action="prepend" target="requests">
   <template>
-    <turbo-frame id="requestuest_<%= request.id %>">
-        <div id="<%= dom_id(request) %>"  class="divide-y divide-gray-200 overflow-hidden post rounded-lg bg-white  shadow">
+    <turbo-frame id="requestuest_<%= request.id %>" class="">
+        <div id="<%= dom_id(request) %>"  class="divide-y divide-gray-200 mb-10 overflow-hidden post rounded-lg bg-white new-post shadow" >
   <div class="px-4 py-5 sm:px-6">
     <!-- Content goes here -->
 
@@ -84,11 +84,11 @@
   <div class="px-4 py-4 sm:px-6">
     <!-- Content goes here -->
     <!-- We use less vertical padding on card footers at all sizes than on headers or body sections -->
-    <% bid_submitted_by_user = request.bids.exists?(user_id: user.id) %>
+    <% bid_submitted_by_user = request.bids.exists?(user_id: current_user.id) %>
       <% if bid_submitted_by_user %>
         <div class="mt-5">
           <ul role="list" class="space-y-6">
-            <% bid_by_user = request.bids.find_by(user_id: user.id) %>
+            <% bid_by_user = request.bids.find_by(user_id: current_user.id) %>
             <li class="relative flex gap-x-4">
               <div class="relative flex h-6 w-6 flex-none items-center justify-center bg-white">
                 <div class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300"></div>
@@ -100,7 +100,7 @@
           </ul>
         </div>
       <% else %>
-        <% unless request.user == user %>
+        <% unless request.user == current_user %>
         <div class="mt-5 flex pl-7 space-x-3" data-controller="bid-modal">
 
           <button type="button" data-action="click->bid-modal#open" data-bid-modal-index="<%= index %>" class="rounded bg-indigo-50 ring-1 ring-indigo-300 px-2 py-1 text-xs font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100" <%= 'disabled' if bid_submitted_by_user %>>

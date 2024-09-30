@@ -28,7 +28,6 @@ class RequestsController < ApplicationController
   def edit
   end
 
-  # POST /requests or /requests.json
   def create
     @request = Request.new(request_params)
     @request.user = current_user # Assuming a request belongs to a user
@@ -38,8 +37,10 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if @request.save
         # flash[:notice] = "Request was successfully created."
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("requests", partial: "dashboard/requestor", locals: { request: @request })  }
+
         format.html { redirect_to dashboard_path }
-        format.json { render :show, status: :created, location: @request }
+        # format.json { render :show, status: :created, location: @request }
       else
         flash[:alert] = "There was an error creating the request."
         format.html { render :new, status: :unprocessable_entity }
@@ -48,6 +49,7 @@ class RequestsController < ApplicationController
     end
   end
 
+  
   # PATCH/PUT /requests/1 or /requests/1.json
   def update
     respond_to do |format|
