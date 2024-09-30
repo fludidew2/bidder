@@ -3,13 +3,13 @@
   <span class="text-sm font-semibold text-gray-900">It's pretty quiet in here </span>
 </div>
 <% else %>
-<% requests.each_with_index do |req, index| %>
-  <% if req.status == 'accepted'  %>
-    <%= render partial: 'request_item', locals: { req: req, index: index } %>
+<% requests.each_with_index do |request, index| %>
+  <% if request.status == 'accepted'  %>
+    <%= render partial: 'request_item', locals: { request: request, index: index } %>
   <% else %>
     <div class="mt-10">
     
-        <%= render partial: 'other_request_item', locals: { req: req, index: index } %>
+        <%= render partial: 'other_request_item', locals: { request: request, index: index } %>
       
     </div>
   <% end %>

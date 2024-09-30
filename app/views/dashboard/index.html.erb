@@ -22,10 +22,10 @@
     <% end %>
   </div>
   <div class="min-w-0 flex-1">
-    <%= form_with model: Request.new, url: requests_path, method: :post, data: { turbo_frame: "requests" }, local: true, class: "relative", id: "request_form" do |form| %>
+      <%= form_with model: Request.new, url: requests_path, method: :post, data: { controller: "form", turbo_frame: "requests" }, local: true, class: "relative", id: "request_form" do |form| %>
       <div class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
         <label for="comment" class="sr-only">Add your comment</label>
-         <%= form.text_area :description, placeholder: "Enter request description", class: "block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", required: true %>
+          <%= form.text_area :description, placeholder: "Enter request description", class: "block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", required: true, data: { action: "keydown.enter->form#submit" } %>
 
         <!-- Spacer element to match the height of the toolbar -->
         <div class="py-2" aria-hidden="true">
@@ -219,6 +219,8 @@
 <turbo-frame id="requests", class="post fade-in">
   <%= render partial: 'dashboard/requests', locals: { requests: @requests } %>
 </turbo-frame>
+
+
 
 
 
